@@ -15,5 +15,12 @@ namespace Ecommerce.Api.Controllers
             var response = await Mediator.Send(new GetCategoriesListQuery());
             return NewResult(response);
         }
+
+        [HttpGet(Router.CategoryRouting.GetByID)]
+        public async Task<IActionResult> GetCategoryByID([FromRoute] int id)
+        {
+            var response = await Mediator.Send(new GetCategoryByIdQuery(id));
+            return NewResult(response);
+        }
     }
 }

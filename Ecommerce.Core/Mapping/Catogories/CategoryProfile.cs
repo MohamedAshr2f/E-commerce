@@ -7,6 +7,7 @@ namespace Ecommerce.Core.Mapping.Catogories
         public CategoryProfile()
         {
             GetCategoryListMapping();
+            GetCategoryByIdMapping();
         }
     }
 }

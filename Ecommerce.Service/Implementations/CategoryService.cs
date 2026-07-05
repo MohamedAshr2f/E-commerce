@@ -18,5 +18,11 @@ namespace Ecommerce.Service.Implementations
             return categories;
 
         }
+
+        public async Task<Category?> GetCategoryByIdAsync(int id)
+        {
+            var category = await _unitOfWork.CategoryRepository.GetTableNoTracking().Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            return category;
+        }
     }
 }
