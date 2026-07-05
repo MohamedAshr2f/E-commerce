@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	
+
+  <ItemGroup>
+    <Folder Include="Commons\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Results\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="AppMetaData\" />
+	  
+  </ItemGroup>
+	
+
+  <ItemGroup>
+    <PackageReference Include="EntityFrameworkCore.EncryptColumn" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.11" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.9" />
+  </ItemGroup>
+
+</Project>

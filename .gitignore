@@ -1,0 +1,113 @@
+# Visual Studio / .NET
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vcxproj.user
+*.vcxproj.filters
+
+# Build artifacts
+bin/
+obj/
+Debug/
+Release/
+publish/
+_PublishedWebsites/
+
+# NuGet
+*.nupkg
+packages/
+.project.lock.json
+project.lock.json
+project.assets.json
+.nuget/packages/
+.nuget\packages\
+
+# Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+.history/
+
+# Logs
+*.log
+logs/
+LogFiles/
+
+# Test results
+TestResults/
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+coverage-report/
+
+# User secrets and local app settings
+appsettings.*.Development.json
+appsettings.*.Local.json
+secrets.json
+.env
+.env.*
+
+# IIS Express
+/.vs*/
+IISExpress/
+
+# Rider/.NET cache
+.reports/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# DotCover
+*.dotCover
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Binary and temporary files
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.obj
+*.pch
+*.idb
+*.class
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Node/npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+docker-compose.override.yml
+
+# Rider caches and IDEA
+.idea/
+out/
+
+# Coverage and reports
+coverage/
+reports/
+
+# Others
+*.vsix
+.vscode-test/
+
+# End of file
