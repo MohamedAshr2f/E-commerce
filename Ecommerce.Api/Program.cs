@@ -1,6 +1,11 @@
 
+using Ecommerce.Core;
+using Ecommerce.Infrastructure;
 using Ecommerce.Infrastructure.ApplicationContext;
+using Ecommerce.Service;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +20,32 @@ builder.Services.AddDbContext<Context>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
 });
+#region Dependency
+builder.Services.AddInfrastructureDependencies().AddServiceDependencies().AddCoreDependencies();
+#endregion
+#region Localization
+builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(opt =>
+{
+    opt.ResourcesPath = "";
+});
 
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    List<CultureInfo> supportedCultures = new List<CultureInfo>
+    {
+                new CultureInfo("en-US"),
+                new CultureInfo("de-DE"),
+                new CultureInfo("fr-FR"),
+                new CultureInfo("ar-EG")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+#endregion
 
 var app = builder.Build();
 

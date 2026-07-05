@@ -1,0 +1,9 @@
+﻿using Ecommerce.Data.Entities.Product;
+
+namespace Ecommerce.Service.Abstracts
+{
+    public interface ICategoryService
+    {
+        public Task<List<Category>> GetAllCategoriesAsync();
+    }
+}
