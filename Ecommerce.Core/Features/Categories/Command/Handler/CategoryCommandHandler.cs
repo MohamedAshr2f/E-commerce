@@ -11,7 +11,8 @@ namespace Ecommerce.Core.Features.Categories.Command.Handler
 {
     public class CategoryCommandHandler : ResponseHandler,
         IRequestHandler<AddCategoryCommand, Response<string>>,
-        IRequestHandler<DeleteCategoryCommand, Response<string>>
+        IRequestHandler<DeleteCategoryCommand, Response<string>>,
+        IRequestHandler<EditCategoryCommand, Response<string>>
     {
         private readonly ICategoryService _categoryService;
         private readonly IStringLocalizer<SharedResource> _stringLocalizer;
@@ -54,6 +55,22 @@ namespace Ecommerce.Core.Features.Categories.Command.Handler
             {
                 return BadRequest<string>();
             }
+        }
+
+        public async Task<Response<string>> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
+        {
+            var category = await _categoryService.GetCategoryByIdWithoutProductsAsync(request.Id);
+            if (category == null)
+            {
+                return NotFound<string>();
+            }
+            var categorymap = _mapper.Map(request, category);
+            var result = await _categoryService.UpdateCategoryAsync(categorymap);
+            if (result == "Successful")
+            {
+                return Updated("");
+            }
+            return BadRequest<string>();
         }
     }
 }

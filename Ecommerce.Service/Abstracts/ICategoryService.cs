@@ -9,5 +9,6 @@ namespace Ecommerce.Service.Abstracts
         public Task<string> AddCategoryAsync(Category category);
         public Task<Category> GetCategoryByIdWithoutProductsAsync(int id);
         public Task<string> DeleteCategoryAsync(Category category);
+        public Task<string> UpdateCategoryAsync(Category category);
     }
 }

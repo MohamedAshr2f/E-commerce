@@ -52,5 +52,11 @@ namespace Ecommerce.Service.Implementations
             var category = _unitOfWork.CategoryRepository.GetTableNoTracking().FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }
+
+        public async Task<string> UpdateCategoryAsync(Category category)
+        {
+            await _unitOfWork.CategoryRepository.UpdateAsync(category);
+            return "Successful";
+        }
     }
 }
