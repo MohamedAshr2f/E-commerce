@@ -30,6 +30,7 @@ namespace Ecommerce.Core.Behaviors
                 {
                     var message = failures.Select(x => _stringLocalizer[$"{x.PropertyName}"] + ":" + _stringLocalizer[x.ErrorMessage]).FirstOrDefault();
 
+                    //var message = failures.Select(x => $"{x.PropertyName}: {x.ErrorMessage}").FirstOrDefault();
                     throw new ValidationException(message);
 
                 }

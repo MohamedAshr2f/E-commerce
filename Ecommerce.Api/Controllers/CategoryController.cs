@@ -30,5 +30,12 @@ namespace Ecommerce.Api.Controllers
             var response = await Mediator.Send(command);
             return NewResult(response);
         }
+
+        [HttpDelete(Router.CategoryRouting.Delete)]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        {
+            var response = await Mediator.Send(new DeleteCategoryCommand(id));
+            return NewResult(response);
+        }
     }
 }

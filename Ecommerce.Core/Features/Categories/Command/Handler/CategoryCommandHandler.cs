@@ -9,7 +9,9 @@ using Microsoft.Extensions.Localization;
 
 namespace Ecommerce.Core.Features.Categories.Command.Handler
 {
-    public class CategoryCommandHandler : ResponseHandler, IRequestHandler<AddCategoryCommand, Response<string>>
+    public class CategoryCommandHandler : ResponseHandler,
+        IRequestHandler<AddCategoryCommand, Response<string>>,
+        IRequestHandler<DeleteCategoryCommand, Response<string>>
     {
         private readonly ICategoryService _categoryService;
         private readonly IStringLocalizer<SharedResource> _stringLocalizer;
@@ -33,6 +35,25 @@ namespace Ecommerce.Core.Features.Categories.Command.Handler
                 return Created(result);
             }
             return BadRequest<string>();
+        }
+
+        public async Task<Response<string>> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
+        {
+            var category = await _categoryService.GetCategoryByIdWithoutProductsAsync(request.Id);
+            if (category == null)
+            {
+                return NotFound<string>();
+            }
+
+            var result = await _categoryService.DeleteCategoryAsync(category);
+            if (result == "Deleted")
+            {
+                return Deleted<string>($"CategoryDeleted{request.Id}");
+            }
+            else
+            {
+                return BadRequest<string>();
+            }
         }
     }
 }

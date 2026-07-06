@@ -30,5 +30,27 @@ namespace Ecommerce.Service.Implementations
             await _unitOfWork.CategoryRepository.AddAsync(category);
             return "successful";
         }
+
+        public async Task<string> DeleteCategoryAsync(Category category)
+        {
+            var trans = _unitOfWork.CategoryRepository.BeginTransaction();
+            try
+            {
+                await _unitOfWork.CategoryRepository.DeleteAsync(category);
+                trans.Commit();
+                return "Deleted";
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                return "failed";
+            }
+        }
+
+        public Task<Category> GetCategoryByIdWithoutProductsAsync(int id)
+        {
+            var category = _unitOfWork.CategoryRepository.GetTableNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+            return category;
+        }
     }
 }

@@ -1,5 +1,6 @@
 
 using Ecommerce.Core;
+using Ecommerce.Core.Middleware;
 using Ecommerce.Infrastructure;
 using Ecommerce.Infrastructure.ApplicationContext;
 using Ecommerce.Service;
@@ -57,6 +58,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 #region Localization Middleware
 var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
