@@ -8,6 +8,7 @@ namespace Ecommerce.Core.Mapping.Catogories
         {
             GetCategoryListMapping();
             GetCategoryByIdMapping();
+            AddCategoryMapping();
         }
     }
 }

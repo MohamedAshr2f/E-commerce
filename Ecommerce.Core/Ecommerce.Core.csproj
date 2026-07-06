@@ -13,8 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Categories\Command\" />
-    <Folder Include="Middleware\" />
     <Folder Include="Wrappers\" />
   </ItemGroup>
 

@@ -6,5 +6,6 @@ namespace Ecommerce.Service.Abstracts
     {
         public Task<List<Category>> GetAllCategoriesAsync();
         public Task<Category?> GetCategoryByIdAsync(int id);
+        public Task<string> AddCategoryAsync(Category category);
     }
 }

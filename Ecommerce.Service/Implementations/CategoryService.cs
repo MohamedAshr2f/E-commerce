@@ -24,5 +24,11 @@ namespace Ecommerce.Service.Implementations
             var category = await _unitOfWork.CategoryRepository.GetTableNoTracking().Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }
+
+        public async Task<string> AddCategoryAsync(Category category)
+        {
+            await _unitOfWork.CategoryRepository.AddAsync(category);
+            return "successful";
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Api.Bases;
+using Ecommerce.Core.Features.Categories.Command.Models;
 using Ecommerce.Core.Features.Categories.Query.Models;
 using Ecommerce.Data.AppMetaData;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,13 @@ namespace Ecommerce.Api.Controllers
         public async Task<IActionResult> GetCategoryByID([FromRoute] int id)
         {
             var response = await Mediator.Send(new GetCategoryByIdQuery(id));
+            return NewResult(response);
+        }
+
+        [HttpPost(Router.CategoryRouting.Create)]
+        public async Task<IActionResult> AddCategory([FromBody] AddCategoryCommand command)
+        {
+            var response = await Mediator.Send(command);
             return NewResult(response);
         }
     }
