@@ -18,7 +18,12 @@
             public const string Pagination = Prefix + "/Pagination";
         }
 
-
-    }
+            public static class ProductRouting
+            {
+                public const string Prefix = Rule + "Product";
+                public const string List = Prefix + "/List";
+                public const string GetByID = Prefix + SignleRoute;
+            }
+        }
 
 }
