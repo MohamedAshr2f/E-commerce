@@ -1,3 +1,5 @@
+using Ecommerce.Core.Features.Products.Query.Results;
+
 namespace Ecommerce.Core.Features.Products.Query.Models
 {
     public class GetProductByIdResponse
@@ -7,14 +9,8 @@ namespace Ecommerce.Core.Features.Products.Query.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public double Rating { get; set; }
-        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public List<PhotoResponse> Photos { get; set; }
+        public List<ProductImageDto> images { get; set; }
     }
 
-    public class PhotoResponse
-    {
-        public int Id { get; set; }
-        public string ImageUrl { get; set; }
-    }
 }

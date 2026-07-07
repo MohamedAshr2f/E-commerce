@@ -1,4 +1,5 @@
 using Ecommerce.Core.Features.Products.Query.Models;
+using Ecommerce.Core.Features.Products.Query.Results;
 using Ecommerce.Data.Entities.Product;
 
 namespace Ecommerce.Core.Mapping.Products
@@ -9,9 +10,9 @@ namespace Ecommerce.Core.Mapping.Products
         {
             CreateMap<Product, GetProductByIdResponse>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-                .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos));
+                .ForMember(dest => dest.images, opt => opt.MapFrom(src => src.Photos));
 
-            CreateMap<Photo, PhotoResponse>();
+            CreateMap<Photo, ProductImageDto>();
         }
     }
 }
