@@ -1,4 +1,5 @@
 using Ecommerce.Api.Bases;
+using Ecommerce.Core.Features.Products.Command.Models;
 using Ecommerce.Core.Features.Products.Query.Models;
 using Ecommerce.Data.AppMetaData;
 using Microsoft.AspNetCore.Mvc;
@@ -21,5 +22,20 @@ namespace Ecommerce.Api.Controllers
             var response = await Mediator.Send(new GetProductByIdQuery(id));
             return NewResult(response);
         }
+
+        [HttpPost(Router.ProductRouting.Create)]
+        public async Task<IActionResult> AddProduct([FromForm] AddProductCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+
+        [HttpPut(Router.ProductRouting.Update)]
+        public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
     }
 }
+

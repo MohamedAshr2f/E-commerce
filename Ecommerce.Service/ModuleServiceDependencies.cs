@@ -10,7 +10,7 @@ namespace Ecommerce.Service
         {
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IFileService, FileService>();
+            services.AddSingleton<IFileService, FileService>();
             return services;
         }
     }

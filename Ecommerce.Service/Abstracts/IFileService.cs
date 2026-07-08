@@ -6,7 +6,7 @@ namespace Ecommerce.Service.Abstracts
     {
         public Task<bool> IsValidImageFileMaxLength(IFormFile file);
         public Task<bool> IsValidImageFileExtension(IFormFile file);
-        public Task<List<string>> UploadImage(string Location, IFormFileCollection file);
-        public void DeleteImage(string Location, string fileName);
+        public Task<List<string>> UploadImage(string Location, IFormFileCollection file, string productname);
+        public Task<string> DeleteImage(string Location, string fileName, string name);
     }
 }

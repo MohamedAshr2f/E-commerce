@@ -42,10 +42,11 @@ namespace Ecommerce.Service.Implementations
             return true;
         }
 
-        public async Task<List<string>> UploadImage(string Location, IFormFileCollection file)
+        public async Task<List<string>> UploadImage(string Location, IFormFileCollection file, string productname)
         {
             List<string> result = new List<string>();
-            var path = _webHostEnvironment.WebRootPath + "/" + Location + "/";
+            var name = productname.Replace(" ", "_");
+            var path = _webHostEnvironment.WebRootPath + "/" + Location + "/" + name + "/";
 
             try
             {
@@ -66,7 +67,7 @@ namespace Ecommerce.Service.Implementations
                             await filestream.FlushAsync();
 
                         }
-                        result.Add($"/{Location}/{fileName}");
+                        result.Add($"/{Location}/{name}/{fileName}");
                     }
                 }
                 return result;
@@ -76,15 +77,25 @@ namespace Ecommerce.Service.Implementations
                 return new List<string> { "FailedToUploadImage" };
             }
         }
-        public void DeleteImage(string Location, string fileName)
+        public async Task<string> DeleteImage(string Location, string fileName, string productname)
         {
-            var path = _webHostEnvironment.WebRootPath + "/" + Location + "/";
-            var fullPath = Path.Combine(path, fileName);
-            if (File.Exists(fullPath))
-            {
-                File.Delete(fullPath);
-            }
+            var name = productname.Replace(" ", "_");
+            var path = _webHostEnvironment.WebRootPath + "/" + Location + "/" + name + "/";
+            var fullPath = Path.Combine(path, Path.GetFileName(fileName));
 
+            try
+            {
+                if (File.Exists(fullPath))
+                {
+                    File.Delete(fullPath);
+                    return "Deleted";
+                }
+                return "NotFound";
+            }
+            catch (Exception)
+            {
+                return "FailedForDeleteImage";
+            }
         }
 
 

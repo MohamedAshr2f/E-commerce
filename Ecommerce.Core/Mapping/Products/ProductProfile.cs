@@ -8,6 +8,8 @@ namespace Ecommerce.Core.Mapping.Products
         {
             GetProductsListMapping();
             GetProductByIdMapping();
+            AddProductMapping();
+            UpdateProductMapping();
         }
     }
 }
