@@ -11,13 +11,14 @@ namespace Ecommerce.Infrastructure.Configurations
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Description).IsRequired().HasMaxLength(500);
-            builder.Property(p => p.Price).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(p => p.NewPrice).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(p => p.OldPrice).IsRequired().HasColumnType("decimal(18,2)");
             builder.HasOne(p => p.Category)
                    .WithMany(c => c.Products)
                    .HasForeignKey(p => p.CategoryId)
                    .OnDelete(DeleteBehavior.NoAction);
             builder.HasData(
-                new Product { Id = 1, Name = "Product 1", Description = "Description for Product 1", Price = 10.99m, Rating = 4.5, CategoryId = 1 }
+                new Product { Id = 1, Name = "Product 1", Description = "Description for Product 1", NewPrice = 10.99m, OldPrice = 12.99m, Rating = 4.5, CategoryId = 1 }
 
             );
         }
