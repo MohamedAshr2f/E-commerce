@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
@@ -60,6 +61,23 @@ builder.Services.AddTransient<IUrlHelper>(x =>
     return factory.GetUrlHelper(actionContext);
 });
 
+#region Rate Limiter
+builder.Services.AddRateLimiter(options =>
+{
+
+    options.AddFixedWindowLimiter("fixed", opt =>
+    {
+
+        opt.Window = TimeSpan.FromSeconds(60);
+        opt.PermitLimit = 5;
+        opt.QueueLimit = 2;
+        opt.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+
+    }).RejectionStatusCode = 429;//TooManyRequests
+
+});
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -68,7 +86,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseRateLimiter();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 #region Localization Middleware

@@ -3,13 +3,16 @@ using Ecommerce.Core.Features.Products.Command.Models;
 using Ecommerce.Core.Features.Products.Query.Models;
 using Ecommerce.Data.AppMetaData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Ecommerce.Api.Controllers
 {
     [ApiController]
+    [EnableRateLimiting("fixed")]
     public class ProductController : AppController
     {
         [HttpGet(Router.ProductRouting.List)]
+
         public async Task<IActionResult> GetProducts()
         {
             var response = await Mediator.Send(new GetProductsListQuery());
