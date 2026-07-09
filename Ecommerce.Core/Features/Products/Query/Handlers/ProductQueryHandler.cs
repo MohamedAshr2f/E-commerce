@@ -11,6 +11,7 @@ namespace Ecommerce.Core.Features.Products.Query.Handlers
 {
     public class ProductQueryHandler : ResponseHandler,
         IRequestHandler<GetProductsListQuery, Response<List<GetProductsListResponse>>>,
+        IRequestHandler<GetProductsSortedQuery, Response<List<GetProductsListResponse>>>,
         IRequestHandler<GetProductByIdQuery, Response<GetProductByIdResponse>>
     {
         private readonly IProductService _productService;
@@ -27,6 +28,13 @@ namespace Ecommerce.Core.Features.Products.Query.Handlers
         public async Task<Response<List<GetProductsListResponse>>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
             var products = await _productService.GetAllProductsAsync();
+            var response = _mapper.Map<List<GetProductsListResponse>>(products);
+            return Success(response);
+        }
+
+        public async Task<Response<List<GetProductsListResponse>>> Handle(GetProductsSortedQuery request, CancellationToken cancellationToken)
+        {
+            var products = await _productService.GetSortedProductsAsync(request.SortBy, request.CategoryId);
             var response = _mapper.Map<List<GetProductsListResponse>>(products);
             return Success(response);
         }

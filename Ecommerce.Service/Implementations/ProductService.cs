@@ -29,6 +29,32 @@ namespace Ecommerce.Service.Implementations
             return products;
         }
 
+        public async Task<List<Product>> GetSortedProductsAsync(string? sortBy, int? CategoryId)
+        {
+            var query = _unitOfWork.ProductRepository.GetTableNoTracking()
+                .Include(p => p.Category)
+                .Include(p => p.Photos)
+                .AsSplitQuery().AsQueryable();
+            if (CategoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == CategoryId);
+            }
+
+            query = sortBy?.ToLower() switch
+            {
+                "name" => query.OrderBy(p => p.Name),
+                "name_desc" => query.OrderByDescending(p => p.Name),
+                "price" => query.OrderBy(p => p.NewPrice),
+                "price_desc" => query.OrderByDescending(p => p.NewPrice),
+                "rating" => query.OrderBy(p => p.Rating),
+                "rating_desc" => query.OrderByDescending(p => p.Rating),
+                "newest" => query.OrderByDescending(p => p.Id),
+                _ => query.OrderBy(p => p.Id)
+            };
+
+            return await query.ToListAsync();
+        }
+
         public async Task<Product> GetProductByIdAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetTableNoTracking()

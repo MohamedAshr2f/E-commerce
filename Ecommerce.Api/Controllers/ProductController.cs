@@ -19,6 +19,13 @@ namespace Ecommerce.Api.Controllers
             return NewResult(response);
         }
 
+        [HttpGet(Router.ProductRouting.GetSorted)]
+        public async Task<IActionResult> GetProductsSorted([FromQuery] GetProductsSortedQuery request)
+        {
+            var response = await Mediator.Send(request);
+            return NewResult(response);
+        }
+
         [HttpGet(Router.ProductRouting.GetByID)]
         public async Task<IActionResult> GetProductById([FromRoute] int id)
         {

@@ -18,15 +18,17 @@
             public const string Pagination = Prefix + "/Pagination";
         }
 
-            public static class ProductRouting
-            {
-                public const string Prefix = Rule + "Product";
-                public const string List = Prefix + "/List";
-                public const string GetByID = Prefix + SignleRoute;
-                public const string Create = Prefix + "/Create";
-                public const string Update = Prefix + "/Update";
-                public const string Delete = Prefix + "/Delete" + SignleRoute;
-            }
+        public static class ProductRouting
+        {
+            public const string Prefix = Rule + "Product";
+            public const string List = Prefix + "/List";
+            public const string GetSorted = Prefix + "/Sorted";
+            public const string GetByID = Prefix + SignleRoute;
+            public const string Create = Prefix + "/Create";
+            public const string Update = Prefix + "/Update";
+            public const string Delete = Prefix + "/Delete" + SignleRoute;
+            public const string Pagination = Prefix + "/Pagination";
         }
+    }
 
 }

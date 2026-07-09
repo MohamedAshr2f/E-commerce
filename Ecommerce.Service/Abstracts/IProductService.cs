@@ -6,6 +6,7 @@ namespace Ecommerce.Service.Abstracts
     public interface IProductService
     {
         public Task<List<Product>> GetAllProductsAsync();
+        public Task<List<Product>> GetSortedProductsAsync(string? sortBy, int? CategoryId);
         public Task<Product> GetProductByIdAsync(int id);
         public Task<Product> GetProductByIdWithoutIncludeAsync(int id);
         public Task<string> AddProductAsync(Product product, IFormFileCollection images);
