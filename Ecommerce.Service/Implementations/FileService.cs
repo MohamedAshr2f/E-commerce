@@ -85,6 +85,7 @@ namespace Ecommerce.Service.Implementations
 
             try
             {
+
                 if (File.Exists(fullPath))
                 {
                     File.Delete(fullPath);
@@ -96,6 +97,7 @@ namespace Ecommerce.Service.Implementations
             {
                 return "FailedForDeleteImage";
             }
+
         }
 
 
