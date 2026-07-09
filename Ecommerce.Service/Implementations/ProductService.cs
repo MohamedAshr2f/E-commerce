@@ -132,6 +132,12 @@ namespace Ecommerce.Service.Implementations
 
         }
 
+        public async Task<string> DeleteProductAsync(Product product)
+        {
+            await _unitOfWork.ProductRepository.DeleteAsync(product);
+            return "Deleted";
+        }
+
 
     }
 }

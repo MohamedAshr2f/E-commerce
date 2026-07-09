@@ -25,6 +25,7 @@
                 public const string GetByID = Prefix + SignleRoute;
                 public const string Create = Prefix + "/Create";
                 public const string Update = Prefix + "/Update";
+                public const string Delete = Prefix + "/Delete" + SignleRoute;
             }
         }
 

@@ -11,7 +11,8 @@ namespace Ecommerce.Core.Features.Products.Command.Handlers
 {
     public class ProductCommandHandler : ResponseHandler,
         IRequestHandler<AddProductCommand, Response<string>>,
-        IRequestHandler<UpdateProductCommand, Response<string>>
+        IRequestHandler<UpdateProductCommand, Response<string>>,
+        IRequestHandler<DeleteProductCommand, Response<string>>
     {
         private readonly IProductService _productService;
         private readonly IStringLocalizer<SharedResource> _stringLocalizer;
@@ -57,5 +58,28 @@ namespace Ecommerce.Core.Features.Products.Command.Handlers
             }
             return Updated("");
         }
+
+        public async Task<Response<string>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        {
+            var product = await _productService.GetProductByIdAsync(request.Id);
+            if (product == null)
+            {
+                return NotFound<string>();
+            }
+
+            var delImages = await _productService.DeleteProductImagesAsync(product);
+            if (delImages == "FailedToDeleteImages")
+            {
+                return BadRequest<string>("Failed to delete product images");
+            }
+
+            var result = await _productService.DeleteProductAsync(product);
+            if (result == "Deleted")
+            {
+                return Deleted<string>($"ProductDeleted{request.Id}");
+            }
+            return BadRequest<string>();
+        }
     }
 }
+

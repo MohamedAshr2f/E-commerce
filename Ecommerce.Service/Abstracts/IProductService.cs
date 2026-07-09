@@ -11,6 +11,7 @@ namespace Ecommerce.Service.Abstracts
         public Task<string> AddProductAsync(Product product, IFormFileCollection images);
         public Task<string> UpdateProductAsync(Product product, IFormFileCollection images);
         public Task<string> DeleteProductImagesAsync(Product product);
+        public Task<string> DeleteProductAsync(Product product);
     }
 }
 
