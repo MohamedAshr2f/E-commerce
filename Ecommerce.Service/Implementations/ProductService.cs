@@ -1,4 +1,5 @@
 using Ecommerce.Data.Entities.Product;
+using Ecommerce.Data.Enums;
 using Ecommerce.Infrastructure.InfrastructureBases;
 using Ecommerce.Service.Abstracts;
 using Microsoft.AspNetCore.Http;
@@ -77,6 +78,7 @@ namespace Ecommerce.Service.Implementations
             var context = _httpContextAccessor.HttpContext.Request;
             var baseUrl = context.Scheme + "://" + context.Host;
             // var imageUrl = await _fileService.UploadImage("Products", images);
+            product.Name = product.Name.ToLower();
             await _unitOfWork.ProductRepository.AddAsync(product);
 
             if (images != null && images.Count > 0)
@@ -164,7 +166,43 @@ namespace Ecommerce.Service.Implementations
             return "Deleted";
         }
 
+        public IQueryable<Product> GetProductQueryable()
+        {
+            return _unitOfWork.ProductRepository.GetTableNoTracking()
+                .Include(p => p.Category)
+                .Include(p => p.Photos)
+                .AsSplitQuery()
+                .AsQueryable();
+        }
 
+        public IQueryable<Product> FilterProductPaginatedQueryable(string searchWord, ProductOrderOptions orderBy)
+        {
+            var query = GetProductQueryable();
+
+            if (!string.IsNullOrEmpty(searchWord))
+            {
+                var searchTerms = searchWord.Split(' ');
+
+                query = query.Where(p => searchTerms.All(term =>
+                    p.Name.ToLower().Contains(term.ToLower()) ||
+                    p.Description.ToLower().Contains(term.ToLower())
+                    ));
+            }
+
+            query = orderBy switch
+            {
+                ProductOrderOptions.Name_Asc => query.OrderBy(p => p.Name),
+                ProductOrderOptions.Name_Desc => query.OrderByDescending(p => p.Name),
+                ProductOrderOptions.Price_Asc => query.OrderBy(p => p.NewPrice),
+                ProductOrderOptions.Price_Desc => query.OrderByDescending(p => p.NewPrice),
+                ProductOrderOptions.Rating_Asc => query.OrderBy(p => p.Rating),
+                ProductOrderOptions.Rating_Desc => query.OrderByDescending(p => p.Rating),
+                ProductOrderOptions.Newest => query.OrderByDescending(p => p.Id),
+                _ => query.OrderBy(p => p.Id)
+            };
+
+            return query;
+        }
     }
 }
 

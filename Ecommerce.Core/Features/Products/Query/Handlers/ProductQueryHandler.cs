@@ -3,6 +3,7 @@ using Ecommerce.Core.Bases;
 using Ecommerce.Core.Features.Products.Query.Models;
 using Ecommerce.Core.Features.Products.Query.Results;
 using Ecommerce.Core.Resources;
+using Ecommerce.Core.Wrappers;
 using Ecommerce.Service.Abstracts;
 using MediatR;
 using Microsoft.Extensions.Localization;
@@ -12,7 +13,8 @@ namespace Ecommerce.Core.Features.Products.Query.Handlers
     public class ProductQueryHandler : ResponseHandler,
         IRequestHandler<GetProductsListQuery, Response<List<GetProductsListResponse>>>,
         IRequestHandler<GetProductsSortedQuery, Response<List<GetProductsListResponse>>>,
-        IRequestHandler<GetProductByIdQuery, Response<GetProductByIdResponse>>
+        IRequestHandler<GetProductByIdQuery, Response<GetProductByIdResponse>>,
+        IRequestHandler<GetProductsPaginatedListFilteredQuery, PaginatedResult<GetProductsListResponse>>
     {
         private readonly IProductService _productService;
         private readonly IStringLocalizer<SharedResource> _stringLocalizer;
@@ -48,6 +50,13 @@ namespace Ecommerce.Core.Features.Products.Query.Handlers
             }
             var response = _mapper.Map<GetProductByIdResponse>(product);
             return Success(response);
+        }
+
+        public async Task<PaginatedResult<GetProductsListResponse>> Handle(GetProductsPaginatedListFilteredQuery request, CancellationToken cancellationToken)
+        {
+            var query = _productService.FilterProductPaginatedQueryable(request.SearchWord, request.OrderBy);
+            var projectedQuery = await _mapper.ProjectTo<GetProductsListResponse>(query).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            return projectedQuery;
         }
     }
 }

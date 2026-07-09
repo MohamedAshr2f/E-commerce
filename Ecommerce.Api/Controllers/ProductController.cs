@@ -53,6 +53,14 @@ namespace Ecommerce.Api.Controllers
             var response = await Mediator.Send(new DeleteProductCommand(id));
             return NewResult(response);
         }
+        [HttpGet(Router.ProductRouting.Pagination)]
+        public async Task<IActionResult> GetProductsPaginationList([FromQuery] GetProductsPaginatedListFilteredQuery query)
+        {
+            var resposnse = await Mediator.Send(query);
+            return Ok(resposnse);
+        }
+
+
     }
 }
 

@@ -1,4 +1,5 @@
 using Ecommerce.Data.Entities.Product;
+using Ecommerce.Data.Enums;
 using Microsoft.AspNetCore.Http;
 
 namespace Ecommerce.Service.Abstracts
@@ -13,6 +14,8 @@ namespace Ecommerce.Service.Abstracts
         public Task<string> UpdateProductAsync(Product product, IFormFileCollection images);
         public Task<string> DeleteProductImagesAsync(Product product);
         public Task<string> DeleteProductAsync(Product product);
+        public IQueryable<Product> GetProductQueryable();
+        public IQueryable<Product> FilterProductPaginatedQueryable(string searchWord, ProductOrderOptions orderBy);
     }
 }
 
