@@ -6,10 +6,8 @@ export interface Product {
   oldPrice: number;
   rating: number;
   CategoryName: string;
-  images: Image[];
-}
-
-export interface Image {
-  Id: number;
-  ImageName: string;
+  images: {
+    Id: number;
+    ImageName: string;
+  };
 }

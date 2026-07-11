@@ -1,0 +1,70 @@
+<div class="col-lg-4 col-md-6">
+  <article class="product-card h-100">
+    <div class="product-image-container">
+      <img
+        src=" https://localhost:7109/Products/dell_g3/5467f59e52c84205aae87cfca6d2b687.jpg"
+        alt=""
+        class="product-image"
+      />
+      <div class="thumbnails">
+        <img
+          src="https://localhost:7109/Products/HP_Pavilion_Gaming_15/4f45756123a6464d8f3624aa2dcd149f.jpg"
+          alt="Dell G3 Front"
+          class="thumbnail-img active"
+        />
+
+        <img
+          src="https://localhost:7109/Products/dell_g3/b8b7034727c64880a4d198ddb3ab57ff.jpg"
+          alt="Dell G3 Side"
+          class="thumbnail-img"
+        />
+
+        <img
+          src="https://localhost:7109/Products/dell_g3/b8b7034727c64880a4d198ddb3ab57ff.jpg"
+          alt="Dell G3 Back"
+          class="thumbnail-img"
+        />
+      </div>
+      <button class="favorite-btn">
+        <i class="fa fa-bookmark"></i>
+      </button>
+    </div>
+
+    <div class="product-body">
+      <div class="product-category">Category name</div>
+
+      <h5 class="product-title">product name</h5>
+
+      <p class="product-description">product description</p>
+
+      <div class="rating mb-3">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-o"></i>
+
+        <span>(4.8)</span>
+      </div>
+
+      <div class="price-box mb-4">
+        <span class="old-price">
+          {{ 1000 | currency }}
+        </span>
+
+        <span class="current-price">
+          {{ 800 | currency }}
+        </span>
+      </div>
+
+      <div class="product-actions">
+        <button class="btn btn-cart">
+          <i class="fa fa-shopping-cart"></i>
+          Add to Cart
+        </button>
+
+        <button class="btn btn-details">Details</button>
+      </div>
+    </div>
+  </article>
+</div>

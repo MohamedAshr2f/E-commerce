@@ -1,10 +1,12 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ShopService } from '../Services/Shop.Service';
 import { Product } from '../Models/ProductDto';
+import { CurrencyPipe } from '@angular/common';
+import { ShopItem } from '../shop-item/shop-item';
 
 @Component({
   selector: 'app-shop',
-  imports: [],
+  imports: [CurrencyPipe, ShopItem],
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })
