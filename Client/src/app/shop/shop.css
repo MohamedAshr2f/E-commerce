@@ -1,0 +1,232 @@
+/* ===================================================
+   Global
+=================================================== */
+
+body {
+    background: #faf9f5;
+    color: #3d3d3a;
+    font-family: Inter, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* ===================================================
+   Typography
+=================================================== */
+
+.main-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 48px;
+    font-weight: 500;
+    color: #141413;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #141413;
+    margin-bottom: 1rem;
+}
+
+/* ===================================================
+   Sidebar
+=================================================== */
+
+.sidebar {
+    background: #efe9de;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #e6dfd8;
+}
+
+/* ===================================================
+   Select
+=================================================== */
+
+.custom-select,
+.form-select {
+    background: #faf9f5;
+    border: 1px solid #e6dfd8;
+    border-radius: 8px;
+    color: #141413;
+    height: 42px;
+    transition: .25s;
+}
+
+.custom-select:focus,
+.form-select:focus {
+    border-color: #cc785c;
+    box-shadow: 0 0 0 4px rgba(204,120,92,.15);
+}
+
+/* ===================================================
+   Categories
+=================================================== */
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-item {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+
+    border-radius: 8px;
+    cursor: pointer;
+
+    transition: .25s;
+
+    color: #6c6a64;
+}
+
+.category-item:hover {
+    background: #e8e0d2;
+    color: #141413;
+}
+
+.category-item.active {
+    background: #efe9de;
+    color: #141413;
+    font-weight: 600;
+}
+
+/* ===================================================
+   Paging
+=================================================== */
+
+.paging-container span {
+    font-size: 15px;
+    color: #6c6a64;
+}
+
+/* ===================================================
+   Search Bar
+=================================================== */
+
+.search-bar {
+    max-width: 480px;
+}
+
+.custom-input,
+.form-control {
+    border: 1px solid #e6dfd8;
+    background: #faf9f5;
+    border-radius: 8px 0 0 8px;
+    height: 42px;
+}
+
+.custom-input:focus,
+.form-control:focus {
+    border-color: #cc785c;
+    box-shadow: 0 0 0 4px rgba(204,120,92,.15);
+}
+
+/* ===================================================
+   Buttons
+=================================================== */
+
+.btn-primary-custom {
+    background: #cc785c;
+    border: none;
+    color: white;
+    padding-inline: 22px;
+    transition: .25s;
+}
+
+.btn-primary-custom:hover {
+    background: #a9583e;
+    color: white;
+}
+
+.btn-secondary-custom {
+    background: #faf9f5;
+    color: #141413;
+    border: 1px solid #e6dfd8;
+    transition: .25s;
+}
+
+.btn-secondary-custom:hover {
+    background: #efe9de;
+}
+
+/* ===================================================
+   Bootstrap Overrides
+=================================================== */
+
+.btn {
+    border-radius: 8px;
+    height: 42px;
+    font-weight: 500;
+}
+
+.input-group > .btn:first-of-type {
+    border-radius: 0;
+}
+
+.input-group > .btn:last-of-type {
+    border-radius: 0 8px 8px 0;
+}
+
+.form-control {
+    box-shadow: none;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 4px rgba(204,120,92,.15);
+}
+
+/* ===================================================
+   Responsive
+=================================================== */
+
+@media (max-width: 992px) {
+
+    .sidebar {
+        margin-bottom: 2rem;
+    }
+
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch !important;
+    }
+
+    .search-bar {
+        max-width: 100%;
+    }
+
+    .main-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .sidebar {
+        padding: 18px;
+    }
+
+    .main-title {
+        font-size: 30px;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-bar .btn {
+        width: 100%;
+        border-radius: 8px;
+        margin-top: .5rem;
+    }
+
+    .custom-input {
+        border-radius: 8px;
+    }
+}

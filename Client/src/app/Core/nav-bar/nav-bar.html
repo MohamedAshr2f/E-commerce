@@ -1,37 +1,42 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg custom-navbar">
   <div class="container">
     <a class="navbar-brand" routerLink="/">
-      <img src="./favicon.ico" alt="Logo" class="logo" />
+      <img src="GrozaStore.png" alt="Logo" class="logo" />
       &nbsp;
-      <i class="text-white">E-commerce</i>
+      <i class="brand-text">E-commerce</i>
     </a>
     <button class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item"><a routerLink="/" class="nav-link">Home</a></li>
         <li class="nav-item"><a routerLink="" class="nav-link">Shopping</a></li>
         <li class="nav-item"><a class="nav-link">About Us</a></li>
         <li class="nav-item"><a class="nav-link">Best Seller</a></li>
       </ul>
-      <form class="form-inline mx-auto">
+      <form class="d-flex mx-auto">
         <div class="input-group">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
-          <div class="input-group-append">
-            <button class="btn btn-light" type="submit">
+          <input
+            class="form-control navbar-search"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <div class="navbar-search-wrapper">
+            <button class="btn btn-search" type="submit">
               <i class="material-icons">search</i>
             </button>
           </div>
         </div>
       </form>
-      <ul class="navbar-nav ml-auto align-items-center">
+      <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
           <a class="nav-link" routerLink=""> </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="Basket">
-            <i class="material-icons">shopping_cart</i>
+            <i matBadge="3" matBadgeColor="warn" class="material-icons">shopping_cart</i>
           </a>
         </li>
 
@@ -50,7 +55,7 @@
 
           <div
             [class.show]="visible()"
-            class="dropdown-menu dropdown-menu-right"
+            class="dropdown-menu dropdown-menu-end account-dropdown"
             aria-labelledby="navbarDropdown"
           >
             <a class="dropdown-item" routerLink="/Account/Register"
