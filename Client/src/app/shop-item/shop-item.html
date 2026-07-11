@@ -1,28 +1,18 @@
 <article class="product-card h-100">
   <div class="product-image-container">
     <img
-      src=" https://localhost:7109/Products/dell_g3/5467f59e52c84205aae87cfca6d2b687.jpg"
+      [src]="'https://localhost:7109' + product().images[0].imageName"
       alt=""
       class="product-image"
     />
     <div class="thumbnails">
-      <img
-        src="https://localhost:7109/Products/HP_Pavilion_Gaming_15/4f45756123a6464d8f3624aa2dcd149f.jpg"
-        alt="Dell G3 Front"
-        class="thumbnail-img active"
-      />
-
-      <img
-        src="https://localhost:7109/Products/dell_g3/b8b7034727c64880a4d198ddb3ab57ff.jpg"
-        alt="Dell G3 Side"
-        class="thumbnail-img"
-      />
-
-      <img
-        src="https://localhost:7109/Products/dell_g3/b8b7034727c64880a4d198ddb3ab57ff.jpg"
-        alt="Dell G3 Back"
-        class="thumbnail-img"
-      />
+      @for (item of product().images; track item.id) {
+        <img
+          [src]="'https://localhost:7109' + item.imageName"
+          alt="Dell G3 Front"
+          class="thumbnail-img active"
+        />
+      }
     </div>
     <button class="favorite-btn">
       <i class="fa fa-bookmark"></i>
@@ -48,11 +38,11 @@
 
     <div class="price-box mb-4">
       <span class="old-price">
-        {{ product().oldPrice | currency }}
+        {{ product().oldPrice | currency: 'EGP' }}
       </span>
 
       <span class="current-price">
-        {{ product().newPrice | currency }}
+        {{ product().newPrice | currency: 'EGP' }}
       </span>
     </div>
 
