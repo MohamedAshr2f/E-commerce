@@ -1,5 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
+import { Product } from '../Models/ProductDto';
 
 @Component({
   selector: 'app-shop-item',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
   templateUrl: './shop-item.html',
   styleUrl: './shop-item.css',
 })
-export class ShopItem {}
+export class ShopItem {
+  product = input.required<Product>();
+}

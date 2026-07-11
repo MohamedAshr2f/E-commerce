@@ -35,7 +35,20 @@
 
       <div class="row g-4 mt-2">
         <ng-container>
-          <app-shop-item></app-shop-item>
+          @if (isFetching() && !error()) {
+            <p class="fallback-text">Fetching available places...</p>
+          }
+
+          @if (error()) {
+            <p class="fallback-text">{{ error() }}</p>
+          }
+          @if (products()) {
+            @for (product of products(); track product.id) {
+              <app-shop-item [product]="product" class="col-lg-4 col-md-6"></app-shop-item>
+            }
+          } @else if (products()?.length === 0) {
+            <p class="fallback-text">Unfortunately, no Products could be found.</p>
+          }
         </ng-container>
       </div>
     </section>

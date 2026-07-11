@@ -577,3 +577,6 @@ body {
 
     box-shadow:0 0 0 3px rgba(204,120,92,.15);
 }
+.fallback-text {
+  text-align: center;
+}

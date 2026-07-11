@@ -19,6 +19,7 @@ export class Shop implements OnInit {
 
   ngOnInit() {
     this.isFetching.set(true);
+
     const subscription = this.shopservice.GetProductsList().subscribe({
       next: (products) => {
         this.products.set(products);
