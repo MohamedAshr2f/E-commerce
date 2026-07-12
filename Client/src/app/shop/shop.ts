@@ -19,28 +19,39 @@ export class Shop implements OnInit {
   private destroyRef = inject(DestroyRef);
   private shopservice = inject(ShopService);
   error = signal('');
+
   selectcatgoryid?: number;
+  sortselected: string = '';
+
+  SortingOption = [
+    { name: 'Name', value: 'n' },
+    { name: 'Price:min-max', value: 'price' },
+    { name: 'Price:max-min', value: 'price_desc' },
+  ];
 
   ngOnInit() {
     this.getproducts();
     this.getcategories();
   }
 
+  // Single method for all product fetching: no filter, category only, sort only, or both
   getproducts() {
     this.isFetching.set(true);
+    this.error.set('');
 
-    const subscription = this.shopservice.GetProductsList().subscribe({
-      next: (products) => {
-        this.products.set(products);
-        console.log(products);
-      },
-      error: (error: Error) => {
-        this.error.set(error.message);
-      },
-      complete: () => {
-        this.isFetching.set(false);
-      },
-    });
+    const subscription = this.shopservice
+      .GetProductsSorted(this.sortselected || undefined, this.selectcatgoryid)
+      .subscribe({
+        next: (products) => {
+          this.products.set(products);
+        },
+        error: (error: Error) => {
+          this.error.set(error.message);
+        },
+        complete: () => {
+          this.isFetching.set(false);
+        },
+      });
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
@@ -52,7 +63,6 @@ export class Shop implements OnInit {
     const subscription = this.shopservice.GetCategoriesList().subscribe({
       next: (categories) => {
         this.categories.set(categories);
-        console.log(categories);
       },
       error: (error: Error) => {
         this.error.set(error.message);
@@ -65,26 +75,7 @@ export class Shop implements OnInit {
       subscription.unsubscribe();
     });
   }
-  getproductsbycategory(categoryId: number) {
-    this.isFetching.set(true);
-    this.error.set('');
 
-    const subscription = this.shopservice.GetCategoryById(categoryId).subscribe({
-      next: (category) => {
-        this.products.set(category.products);
-        console.log(category.products);
-      },
-      error: (error: Error) => {
-        this.error.set(error.message);
-      },
-      complete: () => {
-        this.isFetching.set(false);
-      },
-    });
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
-  }
   selectcategory(categoryid: number) {
     if (this.selectcatgoryid === categoryid) {
       // clicked the already-selected category -> clear filter
@@ -92,8 +83,12 @@ export class Shop implements OnInit {
       this.getproducts();
       return;
     }
-
     this.selectcatgoryid = categoryid;
-    this.getproductsbycategory(categoryid);
+    this.getproducts();
+  }
+
+  SortinByPrice(sort: Event) {
+    this.sortselected = (sort.target as HTMLInputElement).value;
+    this.getproducts();
   }
 }

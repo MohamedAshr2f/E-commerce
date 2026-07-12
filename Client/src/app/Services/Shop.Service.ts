@@ -56,4 +56,26 @@ export class ShopService {
       }),
     );
   }
+  GetProductsSorted(sort?: string, categoryId?: number) {
+    let url = 'https://localhost:7109/Api/V1/Product/Sorted';
+    let param = new HttpParams();
+    if (categoryId) {
+      param = param.append('CategoryId', categoryId);
+    }
+    if (sort) {
+      param = param.append('SortBy', sort);
+    }
+    return this.httpClient.get<ApiResponse<Product[]>>(url, { params: param }).pipe(
+      map((resData) => resData.data),
+      catchError((error) => {
+        console.log(error);
+        return throwError(
+          () =>
+            new Error(
+              'Something went wrong fetching the category products. please try again later .',
+            ),
+        );
+      }),
+    );
+  }
 }
