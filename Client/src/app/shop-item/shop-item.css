@@ -327,6 +327,13 @@ body {
     line-height:1.7;
 
     margin-bottom:20px;
+     display:-webkit-box;
+
+    -webkit-line-clamp:3;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
 }
 
 /* ==========================================
@@ -397,7 +404,7 @@ body {
 
 .btn-cart{
 
-    flex:1 1 auto;
+    flex:1;
 
     display:flex;
 
@@ -405,54 +412,64 @@ body {
 
     justify-content:center;
 
-    gap:4px;
+    gap:8px;
 
-    white-space:nowrap;
+    min-width:0;
 
-    background:#cc785c;
+    height:46px;
 
-    color:white;
+    padding:0 18px;
 
     border:none;
 
-    border-radius:8px;
+    border-radius:10px;
 
-    height:42px;
+    background:#cc785c;
 
-    padding:0 10px;
+    color:#fff;
 
-    font-weight:500;
+    font-weight:600;
 
-    transition:.25s;
+    font-size:15px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    transition:all .25s ease;
 }
 
 .btn-cart:hover{
 
     background:#a9583e;
 
-    color:white;
+    color:#fff;
+
+    transform:translateY(-2px);
 }
 
 .btn-cart i{
 
-    font-size:16px;
+    flex:0 0 auto;
 
-    flex-shrink:0;
+    font-size:17px;
 }
 
 .btn-details{
- 
+
+    flex:0 0 100px;
+
+    height:46px;
+
     border:1px solid #e6dfd8;
+
+    border-radius:10px;
 
     background:#faf9f5;
 
     color:#141413;
 
-    border-radius:8px;
-
-    height:42px;
-
-    padding:0 20px;
+    font-weight:600;
 
     transition:.25s;
 }

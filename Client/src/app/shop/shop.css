@@ -315,6 +315,14 @@ body {
 
     margin-bottom:12px;
 }
+.shop-container{
+
+    max-width:1350px;
+
+    margin:auto;
+
+    padding-inline:40px;
+}
 
 /* ==========================================
    Description
