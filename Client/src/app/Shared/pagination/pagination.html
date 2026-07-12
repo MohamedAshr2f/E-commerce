@@ -1,0 +1,6 @@
+<pagination
+  [itemsPerPage]="pagesize()"
+  [totalItems]="totalcount()"
+  (pageChanged)="OnChangePage($event.page)"
+  [boundaryLinks]="true"
+></pagination>

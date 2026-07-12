@@ -15,10 +15,11 @@ import { Category } from '../Models/CategoryDto';
 import { Categories } from '../categories/categories';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { Productparam } from '../Models/ProductParam';
+import { Pagination } from '../Shared/pagination/pagination';
 
 @Component({
   selector: 'app-shop',
-  imports: [CurrencyPipe, ShopItem, Categories, PaginationModule],
+  imports: [CurrencyPipe, ShopItem, Categories, PaginationModule, Pagination],
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })
@@ -55,6 +56,8 @@ export class Shop implements OnInit {
       next: (products) => {
         this.products.set(products.data);
         this.totalCount = products.totalCount;
+        this.Productparam.pageNumber = products.currentPage;
+        this.Productparam.pageSize = products.pageSize;
       },
       error: (error: Error) => {
         this.error.set(error.message);
@@ -112,6 +115,10 @@ export class Shop implements OnInit {
     this.Productparam.sortselected = '';
     this.searchinput().nativeElement.value = '';
     this.sortinput().nativeElement.value = 'Name_Asc';
+    this.getproducts();
+  }
+  OnChangePage(event: any) {
+    this.Productparam.pageNumber = event;
     this.getproducts();
   }
 }

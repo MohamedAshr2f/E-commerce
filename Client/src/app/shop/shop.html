@@ -78,7 +78,12 @@
           }
         </ng-container>
         <div class="d-flex justify-content-center align-items-center mt-5">
-          <pagination [totalItems]="totalCount"></pagination>
+          <app-pagination
+            [pagesize]="Productparam.pageSize"
+            [totalcount]="totalCount"
+            (pagechange)="OnChangePage($event)"
+          >
+          </app-pagination>
         </div>
       </div>
     </section>
