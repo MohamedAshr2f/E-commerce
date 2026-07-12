@@ -3,12 +3,11 @@ using Ecommerce.Core.Features.Products.Command.Models;
 using Ecommerce.Core.Features.Products.Query.Models;
 using Ecommerce.Data.AppMetaData;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
 
 namespace Ecommerce.Api.Controllers
 {
     [ApiController]
-    [EnableRateLimiting("fixed")]
+    //[EnableRateLimiting("fixed")]
     public class ProductController : AppController
     {
         [HttpGet(Router.ProductRouting.List)]

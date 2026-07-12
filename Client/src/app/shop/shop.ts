@@ -22,11 +22,12 @@ export class Shop implements OnInit {
 
   selectcatgoryid?: number;
   sortselected: string = '';
+  Searchterm: string = '';
 
   SortingOption = [
-    { name: 'Name', value: 'n' },
-    { name: 'Price:min-max', value: 'price' },
-    { name: 'Price:max-min', value: 'price_desc' },
+    { name: 'Name', value: 'Name_Asc' },
+    { name: 'Price:min-max', value: 'Price_Asc' },
+    { name: 'Price:max-min', value: 'Price_Desc' },
   ];
 
   ngOnInit() {
@@ -40,7 +41,13 @@ export class Shop implements OnInit {
     this.error.set('');
 
     const subscription = this.shopservice
-      .GetProductsSorted(this.sortselected || undefined, this.selectcatgoryid)
+      .GetProductPagination(
+        0,
+        10,
+        this.sortselected || undefined,
+        this.Searchterm,
+        this.selectcatgoryid,
+      )
       .subscribe({
         next: (products) => {
           this.products.set(products);
@@ -91,6 +98,9 @@ export class Shop implements OnInit {
     this.sortselected = (sort.target as HTMLInputElement).value;
     this.getproducts();
   }
-  OnSearch(search: string) {}
+  OnSearch(search: string) {
+    this.Searchterm = search;
+    this.getproducts();
+  }
   ResetValue() {}
 }
