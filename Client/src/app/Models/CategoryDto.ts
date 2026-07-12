@@ -1,15 +1,8 @@
-export interface ProductDto {
-  productId: number;
-  name: string;
-  description: string;
-  newPrice: number;
-  oldPrice: number;
-  rating: number;
-}
+import { Product } from './ProductDto';
 
 export interface Category {
   categoryId: number;
   name: string;
   description: string;
-  products: ProductDto[];
+  products: Product[];
 }

@@ -14,14 +14,14 @@ namespace Ecommerce.Service.Implementations
         }
         public async Task<List<Category>> GetAllCategoriesAsync()
         {
-            var categories = await _unitOfWork.CategoryRepository.GetTableNoTracking().Include(c => c.Products).ToListAsync();
+            var categories = await _unitOfWork.CategoryRepository.GetTableNoTracking().Include(c => c.Products).ThenInclude(p => p.Photos).ToListAsync();
             return categories;
 
         }
 
         public async Task<Category?> GetCategoryByIdAsync(int id)
         {
-            var category = await _unitOfWork.CategoryRepository.GetTableNoTracking().Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _unitOfWork.CategoryRepository.GetTableNoTracking().Include(c => c.Products).ThenInclude(p => p.Photos).FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }
 

@@ -1,3 +1,7 @@
-<li class="category-item active">
+<li
+  [class.active]="selected()"
+  (click)="onselectcategory(category().categoryId)"
+  class="category-item active"
+>
   {{ category().name }}
 </li>

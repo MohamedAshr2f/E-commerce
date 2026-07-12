@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Category } from '../Models/CategoryDto';
 import { catchError, map, throwError } from 'rxjs';
 import { ApiResponse } from '../Bases/ApiResponse';
@@ -9,6 +9,7 @@ import { Product } from '../Models/ProductDto';
 })
 export class ShopService {
   private httpClient = inject(HttpClient);
+
   GetProductsList() {
     return this.fetchProducts(
       'https://localhost:7109/Api/V1/Product/List',
@@ -39,5 +40,7 @@ export class ShopService {
         return throwError(() => new Error(errorMessage));
       }),
     );
+  }
+  
   }
 }

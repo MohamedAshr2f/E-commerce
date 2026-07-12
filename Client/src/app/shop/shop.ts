@@ -19,6 +19,7 @@ export class Shop implements OnInit {
   private destroyRef = inject(DestroyRef);
   private shopservice = inject(ShopService);
   error = signal('');
+  selectcatgoryid?: number;
 
   ngOnInit() {
     this.getproducts();
@@ -63,5 +64,36 @@ export class Shop implements OnInit {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+  getproductsbycategory(categoryId: number) {
+    this.isFetching.set(true);
+    this.error.set('');
+
+    const subscription = this.shopservice.GetCategoryById(categoryId).subscribe({
+      next: (category) => {
+        this.products.set(category.products);
+        console.log(category.products);
+      },
+      error: (error: Error) => {
+        this.error.set(error.message);
+      },
+      complete: () => {
+        this.isFetching.set(false);
+      },
+    });
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
+  selectcategory(categoryid: number) {
+    if (this.selectcatgoryid === categoryid) {
+      // clicked the already-selected category -> clear filter
+      this.selectcatgoryid = undefined;
+      this.getproducts();
+      return;
+    }
+
+    this.selectcatgoryid = categoryid;
+    this.getproductsbycategory(categoryid);
   }
 }
