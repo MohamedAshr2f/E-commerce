@@ -4,6 +4,8 @@ import { Category } from '../Models/CategoryDto';
 import { catchError, map, throwError } from 'rxjs';
 import { ApiResponse } from '../Bases/ApiResponse';
 import { Product } from '../Models/ProductDto';
+import { SelectorlessMatcher } from '@angular/compiler';
+import { PaginationApiResponse } from '../Bases/PaginationApiResponse';
 @Injectable({
   providedIn: 'root',
 })
@@ -60,6 +62,36 @@ export class ShopService {
             new Error(
               'Something went wrong fetching the category products. please try again later .',
             ),
+        );
+      }),
+    );
+  }
+  GetProductPagination(
+    PageNumber: number,
+    PageSize: number,
+    sort?: string,
+    search?: string,
+    categoryId?: number,
+  ) {
+    let url = 'https://localhost:7109/Api/V1/Product/Pagination';
+    let param = new HttpParams();
+    param = param.append('PageNumber', PageNumber);
+    param = param.append('PageSize', PageSize);
+    if (search) {
+      param = param.append('SearchWord', search);
+    }
+    if (sort) {
+      param = param.append('OrderBy', sort);
+    }
+    if (categoryId) {
+      param = param.append('CategoryId', categoryId);
+    }
+    return this.httpClient.get<PaginationApiResponse<Product[]>>(url, { params: param }).pipe(
+      map((resData) => resData.data),
+      catchError((error) => {
+        console.log(error);
+        return throwError(
+          () => new Error('Something went wrong fetching the products. please try again later .'),
         );
       }),
     );

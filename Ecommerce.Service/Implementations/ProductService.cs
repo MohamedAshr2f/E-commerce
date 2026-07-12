@@ -175,9 +175,13 @@ namespace Ecommerce.Service.Implementations
                 .AsQueryable();
         }
 
-        public IQueryable<Product> FilterProductPaginatedQueryable(string searchWord, ProductOrderOptions orderBy)
+        public IQueryable<Product> FilterProductPaginatedQueryable(string searchWord, ProductOrderOptions orderBy, int? CategoryId)
         {
             var query = GetProductQueryable();
+            if (CategoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == CategoryId);
+            }
 
             if (!string.IsNullOrEmpty(searchWord))
             {

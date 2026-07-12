@@ -15,7 +15,7 @@ namespace Ecommerce.Service.Abstracts
         public Task<string> DeleteProductImagesAsync(Product product);
         public Task<string> DeleteProductAsync(Product product);
         public IQueryable<Product> GetProductQueryable();
-        public IQueryable<Product> FilterProductPaginatedQueryable(string searchWord, ProductOrderOptions orderBy);
+        public IQueryable<Product> FilterProductPaginatedQueryable(string searchWord, ProductOrderOptions orderBy, int? CategoryId);
     }
 }
 

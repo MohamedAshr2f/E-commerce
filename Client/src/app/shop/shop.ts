@@ -91,4 +91,6 @@ export class Shop implements OnInit {
     this.sortselected = (sort.target as HTMLInputElement).value;
     this.getproducts();
   }
+  OnSearch(search: string) {}
+  ResetValue() {}
 }

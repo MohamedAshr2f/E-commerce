@@ -54,7 +54,7 @@ namespace Ecommerce.Core.Features.Products.Query.Handlers
 
         public async Task<PaginatedResult<GetProductsListResponse>> Handle(GetProductsPaginatedListFilteredQuery request, CancellationToken cancellationToken)
         {
-            var query = _productService.FilterProductPaginatedQueryable(request.SearchWord, request.OrderBy);
+            var query = _productService.FilterProductPaginatedQueryable(request.SearchWord, request.OrderBy, request.CategoryId);
             var projectedQuery = await _mapper.ProjectTo<GetProductsListResponse>(query).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             return projectedQuery;
         }

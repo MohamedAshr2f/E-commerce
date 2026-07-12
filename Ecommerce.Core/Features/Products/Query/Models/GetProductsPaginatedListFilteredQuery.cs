@@ -11,5 +11,6 @@ namespace Ecommerce.Core.Features.Products.Query.Models
         public int PageSize { get; set; } = 10;
         public string? SearchWord { get; set; }
         public ProductOrderOptions OrderBy { get; set; } = ProductOrderOptions.Rating_Asc;
+        public int? CategoryId { get; set; }
     }
 }

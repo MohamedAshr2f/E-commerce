@@ -30,9 +30,26 @@
         </div>
         <div class="search-container">
           <div class="input-group search-bar">
-            <input type="text" class="form-control custom-input" placeholder="Search..." />
-            <input type="button" class="btn btn-primary-custom" value="Search" />
-            <input type="button" class="btn btn-secondary-custom" value="Reset" />
+            <input
+              #search
+              (keyup)="OnSearch(search.value)"
+              (keyup.enter)="OnSearch(search.value)"
+              type="text"
+              class="form-control custom-input"
+              placeholder="Search..."
+            />
+            <input
+              (click)="OnSearch(search.value)"
+              type="button"
+              class="btn btn-primary-custom"
+              value="Search"
+            />
+            <input
+              (click)="ResetValue()"
+              type="button"
+              class="btn btn-secondary-custom"
+              value="Reset"
+            />
           </div>
         </div>
       </div>
