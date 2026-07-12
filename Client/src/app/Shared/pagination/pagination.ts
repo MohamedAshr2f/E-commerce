@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, output } from '@angular/core';
+import { Component, EventEmitter, input, output, ViewEncapsulation } from '@angular/core';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @Component({
@@ -6,6 +6,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
   imports: [PaginationModule],
   templateUrl: './pagination.html',
   styleUrl: './pagination.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class Pagination {
   pagesize = input.required<number>();
