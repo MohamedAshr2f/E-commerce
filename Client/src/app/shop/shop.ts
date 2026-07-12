@@ -1,4 +1,12 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ShopService } from '../Services/Shop.Service';
 import { Product } from '../Models/ProductDto';
 import { CurrencyPipe } from '@angular/common';
@@ -19,6 +27,8 @@ export class Shop implements OnInit {
   private destroyRef = inject(DestroyRef);
   private shopservice = inject(ShopService);
   error = signal('');
+  searchinput = viewChild.required<ElementRef<HTMLInputElement>>('search');
+  sortinput = viewChild.required<ElementRef<HTMLInputElement>>('sortedselected');
 
   selectcatgoryid?: number;
   sortselected: string = '';
@@ -102,5 +112,12 @@ export class Shop implements OnInit {
     this.Searchterm = search;
     this.getproducts();
   }
-  ResetValue() {}
+  ResetValue() {
+    this.selectcatgoryid = undefined;
+    this.Searchterm = '';
+    this.sortselected = '';
+    this.searchinput().nativeElement.value = '';
+    this.sortinput().nativeElement.value = 'Name_Asc';
+    this.getproducts();
+  }
 }

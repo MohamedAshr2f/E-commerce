@@ -5,7 +5,13 @@
       <div class="sidebar">
         <h4 class="section-title">Sorting</h4>
         <div class="custom-select-wrapper mb-4">
-          <select class="form-select custom-select" name="" id="" (change)="SortinByPrice($event)">
+          <select
+            #sortedselected
+            class="form-select custom-select"
+            name=""
+            id=""
+            (change)="SortinByPrice($event)"
+          >
             @for (item of SortingOption; track $index) {
               <option [value]="item.value">{{ item.name }}</option>
             }
