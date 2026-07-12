@@ -41,21 +41,7 @@ export class ShopService {
       }),
     );
   }
-  GetCategoryById(categoryId: number) {
-    let url = 'https://localhost:7109/Api/V1/Category/';
-    return this.httpClient.get<ApiResponse<Category>>(url + categoryId).pipe(
-      map((resData) => resData.data),
-      catchError((error) => {
-        console.log(error);
-        return throwError(
-          () =>
-            new Error(
-              'Something went wrong fetching the category products. please try again later .',
-            ),
-        );
-      }),
-    );
-  }
+
   GetProductsSorted(sort?: string, categoryId?: number) {
     let url = 'https://localhost:7109/Api/V1/Product/Sorted';
     let param = new HttpParams();
