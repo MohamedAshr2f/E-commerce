@@ -13,10 +13,12 @@ import { CurrencyPipe } from '@angular/common';
 import { ShopItem } from '../shop-item/shop-item';
 import { Category } from '../Models/CategoryDto';
 import { Categories } from '../categories/categories';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { Productparam } from '../Models/ProductParam';
 
 @Component({
   selector: 'app-shop',
-  imports: [CurrencyPipe, ShopItem, Categories],
+  imports: [CurrencyPipe, ShopItem, Categories, PaginationModule],
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })
@@ -30,9 +32,8 @@ export class Shop implements OnInit {
   searchinput = viewChild.required<ElementRef<HTMLInputElement>>('search');
   sortinput = viewChild.required<ElementRef<HTMLInputElement>>('sortedselected');
 
-  selectcatgoryid?: number;
-  sortselected: string = '';
-  Searchterm: string = '';
+  Productparam = new Productparam();
+  totalCount: number = 0;
 
   SortingOption = [
     { name: 'Name', value: 'Name_Asc' },
@@ -50,25 +51,18 @@ export class Shop implements OnInit {
     this.isFetching.set(true);
     this.error.set('');
 
-    const subscription = this.shopservice
-      .GetProductPagination(
-        0,
-        10,
-        this.sortselected || undefined,
-        this.Searchterm,
-        this.selectcatgoryid,
-      )
-      .subscribe({
-        next: (products) => {
-          this.products.set(products);
-        },
-        error: (error: Error) => {
-          this.error.set(error.message);
-        },
-        complete: () => {
-          this.isFetching.set(false);
-        },
-      });
+    const subscription = this.shopservice.GetProductPagination(this.Productparam).subscribe({
+      next: (products) => {
+        this.products.set(products.data);
+        this.totalCount = products.totalCount;
+      },
+      error: (error: Error) => {
+        this.error.set(error.message);
+      },
+      complete: () => {
+        this.isFetching.set(false);
+      },
+    });
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
@@ -94,28 +88,28 @@ export class Shop implements OnInit {
   }
 
   selectcategory(categoryid: number) {
-    if (this.selectcatgoryid === categoryid) {
+    if (this.Productparam.selectcatgoryid === categoryid) {
       // clicked the already-selected category -> clear filter
-      this.selectcatgoryid = undefined;
+      this.Productparam.selectcatgoryid = undefined;
       this.getproducts();
       return;
     }
-    this.selectcatgoryid = categoryid;
+    this.Productparam.selectcatgoryid = categoryid;
     this.getproducts();
   }
 
   SortinByPrice(sort: Event) {
-    this.sortselected = (sort.target as HTMLInputElement).value;
+    this.Productparam.sortselected = (sort.target as HTMLInputElement).value;
     this.getproducts();
   }
   OnSearch(search: string) {
-    this.Searchterm = search;
+    this.Productparam.Searchterm = search;
     this.getproducts();
   }
   ResetValue() {
-    this.selectcatgoryid = undefined;
-    this.Searchterm = '';
-    this.sortselected = '';
+    this.Productparam.selectcatgoryid = undefined;
+    this.Productparam.Searchterm = '';
+    this.Productparam.sortselected = '';
     this.searchinput().nativeElement.value = '';
     this.sortinput().nativeElement.value = 'Name_Asc';
     this.getproducts();

@@ -6,6 +6,7 @@ import { ApiResponse } from '../Bases/ApiResponse';
 import { Product } from '../Models/ProductDto';
 import { SelectorlessMatcher } from '@angular/compiler';
 import { PaginationApiResponse } from '../Bases/PaginationApiResponse';
+import { Productparam } from '../Models/ProductParam';
 @Injectable({
   providedIn: 'root',
 })
@@ -66,34 +67,20 @@ export class ShopService {
       }),
     );
   }
-  GetProductPagination(
-    PageNumber: number,
-    PageSize: number,
-    sort?: string,
-    search?: string,
-    categoryId?: number,
-  ) {
+  GetProductPagination(productParam: Productparam) {
     let url = 'https://localhost:7109/Api/V1/Product/Pagination';
     let param = new HttpParams();
-    param = param.append('PageNumber', PageNumber);
-    param = param.append('PageSize', PageSize);
-    if (search) {
-      param = param.append('SearchWord', search);
+    param = param.append('PageNumber', productParam.pageNumber);
+    param = param.append('PageSize', productParam.pageSize);
+    if (productParam.Searchterm) {
+      param = param.append('SearchWord', productParam.Searchterm);
     }
-    if (sort) {
-      param = param.append('OrderBy', sort);
+    if (productParam.sortselected) {
+      param = param.append('OrderBy', productParam.sortselected);
     }
-    if (categoryId) {
-      param = param.append('CategoryId', categoryId);
+    if (productParam.selectcatgoryid) {
+      param = param.append('CategoryId', productParam.selectcatgoryid);
     }
-    return this.httpClient.get<PaginationApiResponse<Product[]>>(url, { params: param }).pipe(
-      map((resData) => resData.data),
-      catchError((error) => {
-        console.log(error);
-        return throwError(
-          () => new Error('Something went wrong fetching the products. please try again later .'),
-        );
-      }),
-    );
+    return this.httpClient.get<PaginationApiResponse<Product[]>>(url, { params: param });
   }
 }
